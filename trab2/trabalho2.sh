@@ -1,42 +1,77 @@
 #!/bin/bash
+x="teste"
+menu ()
+{
+while true $x != "teste"
+do
+clear
+echo "================================================"
+echo "trabalho2 aluno:pablo bitencourt"
+echo ""
+echo "1)Listar conteúdo da pasta atual"
+echo""
+echo "2)Ver conteúdo de um arquivo"
+echo ""
+echo "3)Testar se um Ip está no ar"
+echo ""
+echo "4)Sair do programa"
+echo""
+echo "================================================"
 
-echo "trabalho2 aluno:pablo bitencourt
-[1] listar conteudo da pasta atual
-[2] ver conteudo de um arquivo
-[3] testar se url está no ar
-[0] sair
-digite a opção:"
-read opcao
+echo "Digite a opção desejada:"
+read x
+echo "Opção informada ($x)"
+echo "================================================"
 
-if ($opcao = 1); then
-	for j in $( ls )
-	do
-		echo "$j"
-	done
-elif ($opcao = 2); then
-	echo "qual o nome do arquivo?"
+case "$x" in
+
+
+    1)
+      for j in $( ls )
+        do
+                echo "$j"
+        done
+
+      sleep 5
+
+echo "================================================"
+;;
+    2)
+	echo "Qual o nome do arquivo ?"
 	read arquivo
-	if [ -e $arquivo ]; then
-		cat $arquivo
-	else
-		echo "arquivo não existe"
-	fi
-elif ($opcao = 3); then
-	echo " digite o ip"
-	if [ ! -z $numIp ]; then
-		ping -c 1 $numIp
-		if [ $? -eq 0 ]; then
-			echo "Maquina esta retornando o Ip"
-		else
-			echo "Maquina não esta pingado"
-		fi
-	else
-		echo "Ip vazio"
-	fi
+	find /home/pablobitencourt -iname $(echo "$arquivo") -exec cat {} \;
+	
+        sleep 5
+echo "================================================"
+;;
+   3)
+      echo "Informe o IP"
+	read numIp
+    	     if [ ! -z $numIp ]; then
+                ping -c 1 $numIp
+                if [ $? -eq 0 ]; then
+                        echo "Maquina esta retornando o Ip"
+                else
+                        echo "Maquina não esta pingado"
+                fi
+        else
+                echo "Ip vazio"
+        fi
+      sleep 5
+echo "================================================"
+;;
+    4)
+       echo "saindo..."
+         sleep 2
+         clear;
+         exit;
+echo"==============================================="
+;;
 
-elif ($opcao = 0); then
-	exit
+*)
+        echo "Opção inválida!"
+esac
+done
 
-else
-	echo "opção invalida"
-fi
+}
+menu
